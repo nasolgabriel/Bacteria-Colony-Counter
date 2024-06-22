@@ -1,0 +1,8 @@
+# Ignore virtual environment folder
+.venv/
+
+# ignore testing and experimenting files
+validation_testing_etc
+
+# ignore dataset folder
+AGAR_dataset
