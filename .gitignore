@@ -2,7 +2,10 @@
 .venv/
 
 # ignore testing and experimenting files
-validation_testing_etc
+# validation_testing_etc
 
 # ignore dataset folder
 AGAR_dataset
+
+# testing only for accessing the dataset
+image_acc.ipynb
