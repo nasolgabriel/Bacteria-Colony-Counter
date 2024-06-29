@@ -1,11 +1,11 @@
 # Ignore virtual environment folder
 .venv/
 
-# ignore testing and experimenting files
-# validation_testing_etc
-
 # ignore dataset folder
 AGAR_dataset
 
 # testing only for accessing the dataset
 image_acc.ipynb
+
+#testing script
+dimension_extraction_TESTING.ipynb
