@@ -5,6 +5,7 @@ __pycache__
 
 # ignore dataset folder
 AGAR_dataset
+Training_Test_Split
 
 # testing only for accessing the dataset
 image_acc.ipynb
