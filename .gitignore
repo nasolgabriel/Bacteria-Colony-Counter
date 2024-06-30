@@ -1,3 +1,5 @@
+__pycache__
+
 # Ignore virtual environment folder
 .venv/
 
@@ -9,3 +11,6 @@ image_acc.ipynb
 
 #testing script
 dimension_extraction_TESTING.ipynb
+
+#whole dataset testing folder
+directory
