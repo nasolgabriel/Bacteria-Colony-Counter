@@ -104,10 +104,12 @@ json_folder = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\AGAR_da
 image_folder = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\AGAR_dataset\\AGAR_dataset\\dataset'
 
 # Output directories
-json_output_folder = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\validation_testing_etc\\annotation_conversion\\testing data\\directory\\json'
+json_output_folder = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\validation_testing_etc\\annotation_conversion\\testing data\\directory\\annotation'
 image_output_folder = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\validation_testing_etc\\annotation_conversion\\testing data\\directory\\images'
 
-ranges = [
+ranges = [(1, 308),
+    (2089, 2711),
+    (11738, 11760),
     (309, 1302),
     (2712, 8709),
     (11761, 12617),

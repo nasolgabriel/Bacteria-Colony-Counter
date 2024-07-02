@@ -5,8 +5,8 @@ __pycache__
 
 # ignore dataset folder
 AGAR_dataset
-Training_Test_Split
-
+Train_Test_Split
+check_out
 # testing only for accessing the dataset
 image_acc.ipynb
 
@@ -15,3 +15,9 @@ dimension_extraction_TESTING.ipynb
 
 #whole dataset testing folder
 directory
+
+
+runs
+checking
+previous_training
+.vs
