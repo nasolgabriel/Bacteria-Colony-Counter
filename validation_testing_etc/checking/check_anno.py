@@ -38,8 +38,8 @@ def visualize_yolo_annotation(image_path, annotation_path):
     plt.show()
 
 # Paths to the image and annotation file
-image_path = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\validation_testing_etc\\checking\\3402.jpg'
-annotation_path = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\validation_testing_etc\\checking\\3402.txt'
+image_path = 'validation_testing_etc/augmentation/augmented_images/IMG_1782_hflip.jpg'
+annotation_path = 'validation_testing_etc/augmentation/augmented_labels/IMG_1782_hflip.txt'
 
 # Visualize the annotations
 visualize_yolo_annotation(image_path, annotation_path)

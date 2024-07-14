@@ -21,3 +21,5 @@ runs
 checking
 previous_training
 .vs
+augmented_images
+augmented_labels
