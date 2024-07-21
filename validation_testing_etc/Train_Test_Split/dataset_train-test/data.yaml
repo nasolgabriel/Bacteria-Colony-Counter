@@ -1,0 +1,22 @@
+# Custom dataset for bacterial colonies
+# Example usage: yolo train data=data.yaml
+
+# Dataset root directory
+path: c:\repos\python\Bacteria_counter\validation_testing_etc\Train_Test_Split\dataset_train-test
+
+# Train/val/test sets
+train: train/images
+val: val/images
+test: test/images
+
+# Number of classes
+nc: 1
+
+# Class names
+names:
+  0: colony
+
+# Augmentation
+hsv_h: 0.020
+hsv_v: 0.1
+# mixup: 0.0

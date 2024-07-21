@@ -10,6 +10,9 @@ def visualize_yolo_annotation(image_path, annotation_path):
     with open(annotation_path, 'r') as file:
         annotations = file.readlines()
 
+    # Initialize a counter for the bounding boxes
+    num_bounding_boxes = 0
+
     # Draw each bounding box
     for annotation in annotations:
         # Parse the annotation
@@ -31,15 +34,21 @@ def visualize_yolo_annotation(image_path, annotation_path):
         cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(image, str(int(class_id)), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
+        # Increment the bounding box counter
+        num_bounding_boxes += 1
+
     # Display the image
     plt.figure(figsize=(10, 10))
     plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     plt.axis('off')
     plt.show()
 
-# Paths to the image and annotation file
-image_path = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\validation_testing_etc\\Train_Test_Split\\dataset_train-test\\train\\images\\5034.jpg'
-annotation_path = 'd:\\GitHub_repositories\\pythonProject\\Bacteria_counter\\validation_testing_etc\\Train_Test_Split\\dataset_train-test\\train\\labels\\5034.txt'
+    # Print the number of bounding boxes
+    print(f'Number of bounding boxes: {num_bounding_boxes}')
 
-# Visualize the annotations
+# Paths to the image and annotation file
+image_path = 'D:\Downloads\labels_cof-colony-annotation_2024-07-12-01-50-42\images\IMG_1793.jpg'
+annotation_path = 'D:\Downloads\labels_cof-colony-annotation_2024-07-12-01-50-42\labels\IMG_1793.txt'
+
+# Visualize the annotations and print the number of bounding boxes
 visualize_yolo_annotation(image_path, annotation_path)

@@ -19,7 +19,6 @@ directory
 test
 train
 val
-
 .vs
 augmented_images
 augmented_labels
