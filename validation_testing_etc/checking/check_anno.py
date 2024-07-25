@@ -47,8 +47,8 @@ def visualize_yolo_annotation(image_path, annotation_path):
     print(f'Number of bounding boxes: {num_bounding_boxes}')
 
 # Paths to the image and annotation file
-image_path = 'D:\Downloads\labels_cof-colony-annotation_2024-07-12-01-50-42\images\IMG_1793.jpg'
-annotation_path = 'D:\Downloads\labels_cof-colony-annotation_2024-07-12-01-50-42\labels\IMG_1793.txt'
+image_path = 'C:\\repos\\python\\Bacteria_counter\\validation_testing_etc\\Train_Test_Split\\dataset_train-test\\train\\images\\IMG_1793_rot270.jpg'
+annotation_path = 'C:\\repos\\python\\Bacteria_counter\\validation_testing_etc\\Train_Test_Split\\dataset_train-test\\train\\labels\\IMG_1793_rot270.txt'
 
 # Visualize the annotations and print the number of bounding boxes
 visualize_yolo_annotation(image_path, annotation_path)
