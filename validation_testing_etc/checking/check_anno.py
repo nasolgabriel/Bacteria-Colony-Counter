@@ -1,54 +1,60 @@
 import cv2
+from ultralytics import YOLO
 import matplotlib.pyplot as plt
 
-def visualize_yolo_annotation(image_path, annotation_path):
-    # Load the image
-    image = cv2.imread(image_path)
-    image_height, image_width, _ = image.shape
+# Load a model
+model = YOLO("previous_training/detect-50_epoch-yolon-704px(with_augment)/weights/best.pt")  # your custom-trained YOLO model
 
-    # Read the annotation file
-    with open(annotation_path, 'r') as file:
-        annotations = file.readlines()
+def draw_boxes(image, boxes, class_names=None, display_labels=True, color=(0, 255, 0), thickness=2, font=cv2.FONT_HERSHEY_SIMPLEX, font_scale=0.5, font_thickness=1):
+    for box in boxes:
+        x1, y1, x2, y2 = map(int, box.xyxy[0])  # Extract coordinates
+        cv2.rectangle(image, (x1, y1), (x2, y2), color, thickness)  # Draw rectangle
+        if display_labels and class_names:
+            class_id = int(box.cls[0])
+            label = class_names[class_id]
+            confidence = box.conf[0]
+            text = f"{label} {confidence:.2f}"
+            cv2.putText(image, text, (x1, y1 - 10), font, font_scale, color, font_thickness)
+    return image
 
-    # Initialize a counter for the bounding boxes
-    num_bounding_boxes = 0
+def visualize_yolo_annotation(image_path, model, class_names=None, display_labels=True, color=(0, 255, 0), thickness=2, font=cv2.FONT_HERSHEY_SIMPLEX, font_scale=0.5, font_thickness=1):
+    # Run inference
+    results = model(image_path)
+    
+    # Process results
+    for result in results:
+        img = cv2.imread(result.path)  # Read the original image
+        img = draw_boxes(img, result.boxes, class_names, display_labels, color, thickness, font, font_scale, font_thickness)  # Draw boxes with custom properties
 
-    # Draw each bounding box
-    for annotation in annotations:
-        # Parse the annotation
-        class_id, x_center, y_center, width, height = map(float, annotation.split())
+        # Resize the image to fit the screen
+        plt.figure(figsize=(10, 10))
+        plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+        plt.axis('off')
+        plt.show()
 
-        # Convert normalized coordinates to absolute values
-        x_center *= image_width
-        y_center *= image_height
-        width *= image_width
-        height *= image_height
+        # Make the window resizable
+        cv2.namedWindow('Result', cv2.WINDOW_NORMAL)
+        cv2.imshow('Result', img)
+        cv2.waitKey(0)  # Wait for a key press to close the window
+        cv2.destroyAllWindows()
+        
+        # Save the image
+        output_path = "result.jpg"
+        cv2.imwrite(output_path, img)  # Save the image to disk
 
-        # Calculate the top-left and bottom-right coordinates
-        x1 = int(x_center - width / 2)
-        y1 = int(y_center - height / 2)
-        x2 = int(x_center + width / 2)
-        y2 = int(y_center + height / 2)
+    print("Processing complete.")
 
-        # Draw the rectangle on the image
-        cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(image, str(int(class_id)), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+# Define class names if needed
+class_names = ['class1', 'class2', 'class3']  # Replace with your actual class names
 
-        # Increment the bounding box counter
-        num_bounding_boxes += 1
+# Customize parameters
+image_path = 'D:\\Downloads\\Petri_plates\\Petri_plates\\IMG_7812paureginosa_T8_10^-7_188.JPG'
+display_labels = True
+color = (255, 0, 0)  # Red bounding boxes
+thickness = 2
+font = cv2.FONT_HERSHEY_SIMPLEX
+font_scale = 0.5
+font_thickness = 1
 
-    # Display the image
-    plt.figure(figsize=(10, 10))
-    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-    plt.axis('off')
-    plt.show()
-
-    # Print the number of bounding boxes
-    print(f'Number of bounding boxes: {num_bounding_boxes}')
-
-# Paths to the image and annotation file
-image_path = 'C:\\repos\\python\\Bacteria_counter\\validation_testing_etc\\Train_Test_Split\\dataset_train-test\\train\\images\\IMG_1793_rot270.jpg'
-annotation_path = 'C:\\repos\\python\\Bacteria_counter\\validation_testing_etc\\Train_Test_Split\\dataset_train-test\\train\\labels\\IMG_1793_rot270.txt'
-
-# Visualize the annotations and print the number of bounding boxes
-visualize_yolo_annotation(image_path, annotation_path)
+# Visualize the annotations
+visualize_yolo_annotation(image_path, model, class_names, display_labels, color, thickness, font, font_scale, font_thickness)
