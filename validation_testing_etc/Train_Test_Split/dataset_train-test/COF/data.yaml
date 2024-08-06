@@ -1,0 +1,10 @@
+path: /kaggle/input/cof-data/COF
+
+train: /kaggle/input/cof-data/COF/train/images
+val: /kaggle/input/cof-data/COF/val/images
+test: /kaggle/input/cof-data/COF/test/images
+
+nc: 1
+
+names:
+  0: colony
