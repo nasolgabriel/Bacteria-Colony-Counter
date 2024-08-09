@@ -16,7 +16,7 @@ model = load_model()
 def draw_boxes(image, boxes, thickness=2):
     for box in boxes:
         x1, y1, x2, y2 = map(int, box.xyxy[0])  # Extract coordinates
-        cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness) 
+        cv2.rectangle(image, (x1, y1), (x2, y2), (255, 255, 255), thickness) 
     return image
 
 # Function to resize image to fit the screen
