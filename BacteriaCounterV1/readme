@@ -1,0 +1,10 @@
+Instruction:
+1 Open folder in VScode
+
+2 create venv
+
+3 install necesarry module paste: pip install -r requirements.txt
+
+4 run streamlit by opening terminal and typing: streamlit run BacteriaCounter.py
+
+5 use the UI
