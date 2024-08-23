@@ -10,6 +10,7 @@ def clean_path(path):
     # Convert to absolute path if not already
     if not os.path.isabs(path):
         path = os.path.abspath(path)
+    
     # Ensure the drive letter is lowercase on Windows
     if os.name == 'nt':  # Windows
         path = path[0].lower() + path[1:]
@@ -36,21 +37,33 @@ def clean_path(path):
 @st.cache_resource
 def load_model():
     # Relative path to the model
-    relative_path = "BacteriaCounterV1/960px-60_epoch-yolom-augment/best.pt"
-    # Convert relative path to absolute path and clean it
+    relative_path = r"BacteriaCounterV1/960px-60_epoch-yolom-augment/best.pt"
+    
+    # Clean the path
     model_path = clean_path(relative_path)
+    
     print(f"Model path resolved to: {model_path}")  # Debugging output
     model = YOLO(model_path)
     return model
 
 model = load_model()
 
-# Function to draw bounding boxes without labels and with thinner lines
-def draw_boxes(image, boxes, thickness=2):
+# Function to draw bounding boxes with confidence scores and thinner lines
+def draw_boxes(image, boxes, show_confidence, thickness=2, font_scale=1, font_thickness=2):
     for box in boxes:
         x1, y1, x2, y2 = map(int, box.xyxy[0])  # Extract coordinates
-        cv2.rectangle(image, (x1, y1), (x2, y2), (255, 255, 255), thickness) 
+        confidence = box.conf[0]  # Get confidence score
+        cv2.rectangle(image, (x1, y1), (x2, y2), (255, 255, 255), thickness)
+        
+        if show_confidence:
+            # Adjust the font scale and thickness to make the text larger and more readable
+            label = f'{confidence:.2f}'
+            (text_width, text_height), baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
+            cv2.rectangle(image, (x1, y1 - text_height - baseline), (x1 + text_width, y1), (255, 255, 255), cv2.FILLED)
+            cv2.putText(image, label, (x1, y1 - baseline), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 0, 0), font_thickness)
+    
     return image
+
 
 # Function to resize image to fit the screen
 def resize_image(image, max_width=1200, max_height=800):
@@ -61,14 +74,14 @@ def resize_image(image, max_width=1200, max_height=800):
     return resized_image
 
 # Function to perform inference and count bacterial colonies
-def count_bacterial_colonies(image):
+def count_bacterial_colonies(image, show_confidence):
     image_np = np.array(image)
-    results = model(image_np, max_det=500, )
+    results = model(image_np, max_det=600, conf=0.40, iou=0.55)
     total_colonies = 0
 
     for result in results:
         total_colonies += len(result.boxes)
-        img_with_boxes = draw_boxes(image_np.copy(), result.boxes, thickness=2)
+        img_with_boxes = draw_boxes(image_np.copy(), result.boxes, show_confidence, thickness=2)
         resized_img = resize_image(img_with_boxes, max_width=1200, max_height=800)
 
     return img_with_boxes, resized_img, total_colonies
@@ -83,9 +96,12 @@ if uploaded_file is not None:
     # Load the uploaded image
     image = Image.open(uploaded_file)
     
+    # Checkbox to toggle confidence level display
+    show_confidence = st.checkbox("Show confidence level", value=True)
+    
     # Button to count bacterial colonies
     if st.button("Count"):
-        img_with_boxes, resized_img, total_colonies = count_bacterial_colonies(image)
+        img_with_boxes, resized_img, total_colonies = count_bacterial_colonies(image, show_confidence)
         
         # Create a two-column layout to display images side by side
         col1, col2 = st.columns(2)
@@ -101,5 +117,3 @@ if uploaded_file is not None:
         st.image(image, caption='Uploaded Image', use_column_width=True)
 
 print("Image upload and display complete.")
-
-
