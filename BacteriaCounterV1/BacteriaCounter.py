@@ -5,6 +5,14 @@ import numpy as np
 from PIL import Image
 import os
 
+special_outputs = [
+                  "Too Few To Count: sample size too small", 
+                  "Too Many To Count: sample size exceeded",
+                  "Total number of bacterial colonies detected:"
+                  ]
+
+min_max_colony  = [25, 300]
+
 # Function to convert relative path to absolute path, ensure the drive letter is lowercase, and normalize the path
 def clean_path(path):
     # Convert to absolute path if not already
@@ -80,11 +88,21 @@ def count_bacterial_colonies(image, show_confidence):
     total_colonies = 0
 
     for result in results:
+        not_special_value = True
+
         total_colonies += len(result.boxes)
         img_with_boxes = draw_boxes(image_np.copy(), result.boxes, show_confidence, thickness=2)
         resized_img = resize_image(img_with_boxes, max_width=1200, max_height=800)
 
-    return img_with_boxes, resized_img, total_colonies
+        if total_colonies < min_max_colony[0]:
+            total_colonies = special_outputs[0]
+            not_special_value = False
+
+        elif total_colonies > min_max_colony[1]:
+            total_colonies = special_outputs[1]
+            not_special_value = False
+
+    return img_with_boxes, resized_img, total_colonies, not_special_value
 
 # Streamlit UI
 st.title("YOLOv8 Bacterial Colony Counter")
@@ -101,7 +119,7 @@ if uploaded_file is not None:
     
     # Button to count bacterial colonies
     if st.button("Count"):
-        img_with_boxes, resized_img, total_colonies = count_bacterial_colonies(image, show_confidence)
+        img_with_boxes, resized_img, total_colonies, not_special_value= count_bacterial_colonies(image, show_confidence)
         
         # Create a two-column layout to display images side by side
         col1, col2 = st.columns(2)
@@ -111,7 +129,7 @@ if uploaded_file is not None:
         
         with col2:
             st.image(resized_img, caption=f'Processed Image', use_column_width=True)
-            st.write(f"Total number of bacterial colonies detected: {total_colonies}")
+            st.write(f"<span style='color: #FF0000;'>{special_outputs[2]} {total_colonies}</span>" if not_special_value else total_colonies, unsafe_allow_html=True)
     else:
         # Display the raw image in the middle if no predictions are made
         st.image(image, caption='Uploaded Image', use_column_width=True)
