@@ -93,6 +93,7 @@ def count_bacterial_colonies(image, show_confidence):
         total_colonies += len(result.boxes)
         img_with_boxes = draw_boxes(image_np.copy(), result.boxes, show_confidence, thickness=2)
         resized_img = resize_image(img_with_boxes, max_width=1200, max_height=800)
+        tally = total_colonies
 
         if total_colonies < min_max_colony[0]:
             total_colonies = special_outputs[0]
@@ -102,7 +103,7 @@ def count_bacterial_colonies(image, show_confidence):
             total_colonies = special_outputs[1]
             not_special_value = False
 
-    return img_with_boxes, resized_img, total_colonies, not_special_value
+    return img_with_boxes, resized_img, total_colonies, not_special_value, tally
 
 # Streamlit UI
 st.title("YOLOv8 Bacterial Colony Counter")
@@ -119,7 +120,7 @@ if uploaded_file is not None:
     
     # Button to count bacterial colonies
     if st.button("Count"):
-        img_with_boxes, resized_img, total_colonies, not_special_value= count_bacterial_colonies(image, show_confidence)
+        img_with_boxes, resized_img, total_colonies, not_special_value, tally= count_bacterial_colonies(image, show_confidence)
         
         # Create a two-column layout to display images side by side
         col1, col2 = st.columns(2)
@@ -129,7 +130,9 @@ if uploaded_file is not None:
         
         with col2:
             st.image(resized_img, caption=f'Processed Image', use_column_width=True)
-            st.write(f"<span style='color: #FF0000;'>{special_outputs[2]} {total_colonies}</span>" if not_special_value else total_colonies, unsafe_allow_html=True)
+            st.write(f"<span style='color: #FFFFFF;'>{special_outputs[2]} {total_colonies}</span>"
+                     if not_special_value else f"<span style='color: #FF0000;'>{total_colonies}</span>",
+                     '' if not_special_value else f"<span style='color: #FF0000;'>{tally}</span>", unsafe_allow_html=True)
     else:
         # Display the raw image in the middle if no predictions are made
         st.image(image, caption='Uploaded Image', use_column_width=True)
