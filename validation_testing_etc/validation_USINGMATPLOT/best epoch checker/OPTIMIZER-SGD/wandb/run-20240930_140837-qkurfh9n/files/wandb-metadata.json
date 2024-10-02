@@ -1,0 +1,65 @@
+{
+    "os": "Linux-5.15.154+-x86_64-with-glibc2.31",
+    "python": "3.10.13",
+    "heartbeatAt": "2024-09-30T14:08:37.565391",
+    "startedAt": "2024-09-30T14:08:37.197803",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/root/.config/Ultralytics/DDP/_temp_uqlg6hkx137929653467504.py",
+    "codePathLocal": null,
+    "host": "49885bcc1a26",
+    "username": "root",
+    "executable": "/opt/conda/bin/python",
+    "cpu_count": 2,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 2000.192,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2000.192,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2000.192,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2000.192,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2000.192,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 8062.387607574463,
+            "used": 5889.403621673584
+        }
+    },
+    "gpu": "Tesla T4",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "Tesla T4",
+            "memory_total": 16106127360
+        },
+        {
+            "name": "Tesla T4",
+            "memory_total": 16106127360
+        }
+    ],
+    "memory": {
+        "total": 31.357574462890625
+    }
+}
