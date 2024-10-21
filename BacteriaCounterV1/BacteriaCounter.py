@@ -45,7 +45,7 @@ def clean_path(path):
 @st.cache_resource
 def load_model():
     # Relative path to the model
-    relative_path = r"BacteriaCounterV1/960px-60_epoch-yolom-augment/best.pt"
+    relative_path = r"C:/repos/python/Bacteria_counter/BacteriaCounterV1/960px-60_epoch-yolom-augment-updated-10patience/best.pt"
     
     model_path = clean_path(relative_path)
     
@@ -83,7 +83,7 @@ def resize_image(image, max_width=1200, max_height=800):
 # Function to perform inference and count bacterial colonies
 def count_bacterial_colonies(image, show_confidence):
     image_np = np.array(image)
-    results = model(image_np, max_det=600, conf=0.50, iou=0.55)
+    results = model(image_np, max_det=600, conf=0.50, iou=0.80)
     total_colonies = 0
 
     for result in results:
