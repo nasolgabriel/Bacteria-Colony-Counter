@@ -1,2 +1,8 @@
 BacteriaCounterV1/960px-60_epoch-yolom-augment/best.pt filter=lfs diff=lfs merge=lfs -text
 BacteriaCounterV1/960px-60_epoch-yolom-augment/last.pt filter=lfs diff=lfs merge=lfs -text
+
+BacteriaCounterV1/960px-60_epoch-yolom-augment-updated/best.pt filter=lfs diff=lfs merge=lfs -text
+BacteriaCounterV1/960px-60_epoch-yolom-augment-updated/last.pt filter=lfs diff=lfs merge=lfs -text
+
+BacteriaCounterV1/960px-60_epoch-yolom-augment-updated-10patience/best.pt filter=lfs diff=lfs merge=lfs -text
+BacteriaCounterV1/960px-60_epoch-yolom-augment-updated-10patience/last.pt filter=lfs diff=lfs merge=lfs -text
