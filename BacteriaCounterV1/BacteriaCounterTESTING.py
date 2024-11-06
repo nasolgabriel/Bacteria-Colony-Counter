@@ -12,7 +12,7 @@ def clean_path(path):
         path = os.path.abspath(path)
     
     # Ensure the drive letter is lowercase on Windows
-    if os.name == 'nt':  # Windows
+    if os.name == 'nt':
         path = path[0].lower() + path[1:]
     
     # Normalize the path separators
