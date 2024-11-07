@@ -39,11 +39,11 @@ def clean_path(path):
 # Load your YOLOv8 model with path adjustment
 @st.cache_resource
 def load_model():
-    relative_path = r"C:/repos/python/Bacteria_counter/BacteriaCounterV1/960px-60_epoch-yolom-augment-updated-10patience/best.pt"
+    relative_path = r"BacteriaCounterV1/960px-60_epoch-yolom-augment/best.pt"
     
     model_path = clean_path(relative_path)
     
-    print(f"Model path resolved to: {model_path}")
+    print(f"Model path resolved to: {model_path}")  # Debugging output
     model = YOLO(model_path)
     return model
 
