@@ -77,7 +77,7 @@ def resize_image(image, max_width=1200, max_height=800):
 # Function to perform inference and count bacterial colonies
 def count_bacterial_colonies(image, show_confidence):
     image_np = np.array(image)
-    results = model(image_np, max_det=600, conf=0.50, iou=0.80)
+    results = model(image_np, max_det=300, conf=0.50, iou=0.80)
     total_colonies = 0
 
     for result in results:
