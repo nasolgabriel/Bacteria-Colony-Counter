@@ -73,13 +73,13 @@ def copy_random_images(
     print(f"Successfully copied {len(selected_images)} images and their annotations to '{destination_folder}'.")
 
 # Example usage
-source_images_folder = r"validation_testing_etc\Train_Test_Split\dataset_train-test\val\images"
-source_annotations_folder = r"validation_testing_etc\Train_Test_Split\dataset_train-test\val\labels"
-destination_folder = r"VALIDATION-panel_request/selected"
-start_range = 1
+source_images_folder = r"Bacteria_counter\validation_testing_etc\Train_Test_Split\dataset_train-test\val\images"
+source_annotations_folder = r"Bacteria_counter\validation_testing_etc\Train_Test_Split\dataset_train-test\val\labels"
+destination_folder = r"Bacteria_counter\VALIDATION-panel_request\selected"
+start_range = 4700
 end_range = 17000
 num_images_to_pick = 300
-bacteria_threshold = 30  # Minimum number of colonies required
+bacteria_threshold = 25 # Minimum number of colonies required
 
 copy_random_images(
     source_images_folder, 
