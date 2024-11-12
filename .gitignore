@@ -22,3 +22,6 @@ val
 .vs
 augmented_images
 augmented_labels
+
+# ignore image folder
+selected
